@@ -1,0 +1,11 @@
+ul {
+  list-style: none;
+}
+
+ul > li > ul {
+  list-style: '-';
+}
+
+ul > li > ul > li > ul {
+  list-style: '--';
+}

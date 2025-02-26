@@ -1,15 +1,12 @@
-interface ISearchBarProps {
-  formName: string;
-  onSubmit: (searchTerm: string) => void;
-  htmlFor: string
-}
+import './SearchBar.css';
+import { ISearchBarProps } from "../../interface";
 
 export default function SearchBar ({ formName, onSubmit, htmlFor }: ISearchBarProps) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     
     const formData = new FormData(e.currentTarget);
-    const searchTerm = formData.get(`${htmlFor}`)?.toString() || '';
+    const searchTerm = formData.get(`${htmlFor}`)?.toString().toLowerCase() || ''; // search term only shows results when done in lower case?
 
     if (searchTerm !== '') {
       onSubmit(searchTerm);
@@ -19,7 +16,7 @@ export default function SearchBar ({ formName, onSubmit, htmlFor }: ISearchBarPr
     }
   }
 
-  return <form name={formName} onSubmit={handleSubmit}>
+  return <form className="searchForm" name={formName} onSubmit={handleSubmit}>
     <label htmlFor={htmlFor}>Search homework: </label>
     <input type="text" id={htmlFor} name={htmlFor}/>
 

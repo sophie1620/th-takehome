@@ -1,24 +1,34 @@
 import { useState } from "react";
+import './Home.css';
 
-import SearchBar from "../components/search-bar/SearchBar"
-import { getCourseHomework } from "../api/api";
-import Error from "../components/error/Error";
+import SearchBar from "../components/SearchBar/SearchBar"
+import Error from "../components/Error/Error";
+import { IHomeworkItem } from "../interface";
+import { getCourseHomework } from "../service/getCourseHomework";
+import HomeworkResults from "../components/HomeworkResults/HomeworkResults";
+import { formatHomeworkResult } from "../utils/helpers";
+import Loading from "../components/Loading/Loading";
+
+const defaultError = {hasError: false, message: ''}
 
 export default function Home() {
-  const [isFetching, setIsFetching] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [responseData, setResponseData] = useState();
+  const [homeworkData, setHomeworkData] = useState<IHomeworkItem[] | []>([]);
+  const [error, setError] = useState(defaultError);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSearch(searchTerm: string) {
-    setIsFetching(true);
-    const responseData = await getCourseHomework(searchTerm);
+    setIsLoading(true);
+    try {
+      setError(defaultError);
+      const responseData = await getCourseHomework(searchTerm);
+      const formatedData = await formatHomeworkResult(responseData);
+      setHomeworkData(formatedData);
 
-    console.log(responseData);
-    if (responseData) {
-      setIsFetching(false)
-    } else {
-      setHasError(true);
+    } catch (error) {
+      setError({hasError: true, message:`We're unable to get homework for "${searchTerm}." Please try again.`});
+      setHomeworkData([]);
     }
+    setIsLoading(false);
   }
 
   return <>
@@ -30,6 +40,13 @@ export default function Home() {
       htmlFor="courseHomeworkSearch"
     />
 
-    {hasError && <Error message="Unable to complete search at this time" />}
+    {isLoading && <Loading />}
+
+    {!isLoading && homeworkData.length > 0 &&
+      <div className="homework-results-container">
+        <HomeworkResults homeworkResults={homeworkData} />
+      </div>}
+
+    {!isLoading && error.hasError && <Error message={error.message} />}
   </>
 }

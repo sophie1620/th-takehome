@@ -1,0 +1,11 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-oops {
+  font-weight: bold;
+  font-size: 24px;
+}
