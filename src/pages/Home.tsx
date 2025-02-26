@@ -3,11 +3,11 @@ import './Home.css';
 
 import SearchBar from "../components/SearchBar/SearchBar"
 import Error from "../components/Error/Error";
-import { IHomeworkItem } from "../interface";
-import { getCourseHomework } from "../service/getCourseHomework";
-import HomeworkResults from "../components/HomeworkResults/HomeworkResults";
-import { formatHomeworkResult } from "../utils/helpers";
 import Loading from "../components/Loading/Loading";
+import HomeworkResults from "../components/HomeworkResults/HomeworkResults";
+import { getCourseHomework } from "../service/getCourseHomework";
+import { formatHomeworkResult } from "../utils/helpers";
+import { IHomeworkItem } from "../interface";
 
 const defaultError = {hasError: false, message: ''}
 
@@ -44,16 +44,20 @@ export default function Home() {
 
     {isLoading && <Loading />}
 
+    {/* sometimes search results return empty array--I'm assuming that there is no assigned homework for the topic */}
     {!isLoading 
       && !error.hasError 
       && homeworkData?.length === 0 
       && <p className="homework-results-none">{`You don't have any ${searchTerm} homework right now.`}</p>}
 
-    {!isLoading && homeworkData &&
-      <div className="homework-results-container">
+    {!isLoading 
+      && homeworkData 
+      && <div className="homework-results-container">
         <HomeworkResults searchTerm={searchTerm} homeworkResults={homeworkData} />
       </div>}
 
-    {!isLoading && error.hasError && <Error message={error.message} />}
+    {!isLoading 
+      && error.hasError 
+      && <Error message={error.message} />}
   </>
 }

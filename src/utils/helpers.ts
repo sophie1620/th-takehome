@@ -2,9 +2,9 @@ import { IHomeworkItem } from "../interface";
 
 /**
  * formats flat tree results into a nested tree structure
- * sorts homeworkResults according to parent_id starting from 0
- * finds parent object and pushes child(ren) into the parent's tasks object
- * tasks are the subtasks that are associated with the main task/homework
+ *  sorts homeworkResults according to parent_id starting from 0
+ *  finds parent object and pushes child(ren) into the parent's tasks object
+ *  "tasks" are the subtasks that are associated with the main task/homework
  * @param homeworkResults 
  * @returns 
  */

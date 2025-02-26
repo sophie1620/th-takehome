@@ -1,7 +1,6 @@
 import './ Error.css';
-interface IErrorMessage {
-  message: String;
-}
+
+import { IErrorMessage } from '../../interface';
 
 export default function Error({message}: IErrorMessage) {
   return (

@@ -1,12 +1,12 @@
 import './SearchBar.css';
+
 import { ISearchBarProps } from "../../interface";
 
 export default function SearchBar ({ formName, onSubmit, htmlFor }: ISearchBarProps) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
     const formData = new FormData(e.currentTarget);
-    const searchTerm = formData.get(`${htmlFor}`)?.toString().toLowerCase() || ''; // search term only shows results when done in lower case?
+    const searchTerm = formData.get(`${htmlFor}`)?.toString().toLowerCase() || ''; // search term seems to only shows results when done in lower case
 
     if (searchTerm !== '') {
       onSubmit(searchTerm);

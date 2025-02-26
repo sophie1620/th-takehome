@@ -1,8 +1,8 @@
 import './HomeworkResults.css';
+
 import { IHomeworkResultProps } from "../../interface"
 
 export default function HomeworkResults({homeworkResults, searchTerm}: IHomeworkResultProps) {
-
   return <>
     {homeworkResults.length > 0 && searchTerm && <h3>{`Homework results for: "${searchTerm}"`}</h3>}
 
