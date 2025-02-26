@@ -12,9 +12,10 @@ import Loading from "../components/Loading/Loading";
 const defaultError = {hasError: false, message: ''}
 
 export default function Home() {
-  const [homeworkData, setHomeworkData] = useState<IHomeworkItem[] | []>([]);
+  const [homeworkData, setHomeworkData] = useState<IHomeworkItem[] | [] | undefined >(undefined);
   const [error, setError] = useState(defaultError);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   async function handleSearch(searchTerm: string) {
     setIsLoading(true);
@@ -28,6 +29,7 @@ export default function Home() {
       setError({hasError: true, message:`We're unable to get homework for "${searchTerm}." Please try again.`});
       setHomeworkData([]);
     }
+    setSearchTerm(searchTerm);
     setIsLoading(false);
   }
 
@@ -42,9 +44,14 @@ export default function Home() {
 
     {isLoading && <Loading />}
 
-    {!isLoading && homeworkData.length > 0 &&
+    {!isLoading 
+      && !error.hasError 
+      && homeworkData?.length === 0 
+      && <p className="homework-results-none">{`You don't have any ${searchTerm} homework right now.`}</p>}
+
+    {!isLoading && homeworkData &&
       <div className="homework-results-container">
-        <HomeworkResults homeworkResults={homeworkData} />
+        <HomeworkResults searchTerm={searchTerm} homeworkResults={homeworkData} />
       </div>}
 
     {!isLoading && error.hasError && <Error message={error.message} />}

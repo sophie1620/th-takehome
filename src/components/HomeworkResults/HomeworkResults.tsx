@@ -1,9 +1,11 @@
 import './HomeworkResults.css';
 import { IHomeworkResultProps } from "../../interface"
 
-export default function HomeworkResults({homeworkResults}: IHomeworkResultProps) {
+export default function HomeworkResults({homeworkResults, searchTerm}: IHomeworkResultProps) {
 
   return <>
+    {homeworkResults.length > 0 && searchTerm && <h3>{`Homework results for: "${searchTerm}"`}</h3>}
+
     <ul>
       {homeworkResults.map((result) => 
         <li key={result.id}>

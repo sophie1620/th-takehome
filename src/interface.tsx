@@ -13,4 +13,5 @@ export interface IHomeworkItem {
 
 export interface IHomeworkResultProps {
   homeworkResults: IHomeworkItem[];
+  searchTerm?: string;
 }
