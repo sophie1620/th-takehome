@@ -12,9 +12,7 @@ export default function SearchBar ({ formName, onSubmit, htmlFor }: ISearchBarPr
     if (searchTerm !== '') {
       onSubmit(searchTerm);
       e.currentTarget.reset();
-    } else {
-      return
-    }
+    } 
   }
   
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
