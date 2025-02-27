@@ -1,10 +1,10 @@
 import './HomeworkResults.css';
 
-import { IHomeworkResultProps } from "../../interface"
+import { IHomeworkResultProps } from "../../interface";
 
-export default function HomeworkResults({homeworkResults, searchTerm}: IHomeworkResultProps) {
+export default function HomeworkResults({term, homeworkResults}: IHomeworkResultProps) {
   return <>
-    {homeworkResults.length > 0 && searchTerm && <h3>{`Homework results for: "${searchTerm}"`}</h3>}
+    {homeworkResults.length > 0 && term && <h3>{`Homework results for: "${term}"`}</h3>}
 
     <ul>
       {homeworkResults.map((result) => 

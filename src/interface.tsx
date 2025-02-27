@@ -8,10 +8,11 @@ export interface IHomeworkItem {
   name: string;
   parent_id: number;
   tasks?: IHomeworkItem[];
+  term?: string;
 }
 export interface IHomeworkResultProps {
   homeworkResults: IHomeworkItem[];
-  searchTerm?: string;
+  term?: string;
 }
 export interface IErrorMessage {
   message: String;

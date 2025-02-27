@@ -8,12 +8,37 @@ import { IHomeworkItem } from "../interface";
  * @param homeworkResults 
  * @returns 
  */
-export async function formatHomeworkResult(homeworkResults: IHomeworkItem[]) {
-  let sortedResults = homeworkResults.sort((a, b) => a.parent_id - b.parent_id);
-  let formattedData: IHomeworkItem[] = [];
+// export async function formatHomeworkResult(homeworkResults: IHomeworkItem[]) {
+//   let sortedResults = homeworkResults.sort((a, b) => a.parent_id - b.parent_id);
+//   let formattedData: IHomeworkItem[] = [];
 
-    for (let item of sortedResults) {
+//     for (let item of sortedResults) {
+//       item.tasks = [];
+
+//       // establish the top level
+//       if (item.parent_id === 0) {
+//         formattedData.push(item);
+
+//       } else {
+//         // find the parent
+//         const parentContainer = homeworkResults.find((x) => {if(x.id === item.parent_id){ return x} });
+
+//         // push child into parent
+//         if (parentContainer) {
+//           parentContainer.tasks?.push(item);
+//         }
+//       }
+//     }
+//     return formattedData;
+// }
+
+export async function formatHomeworkResult(homeworkResults: IHomeworkItem[]) {
+  let formattedData: IHomeworkItem[] = [];
+  const homework = new Map();
+
+    for (let item of homeworkResults) {
       item.tasks = [];
+      homework.set(item.id, item);
 
       // establish the top level
       if (item.parent_id === 0) {
@@ -21,7 +46,7 @@ export async function formatHomeworkResult(homeworkResults: IHomeworkItem[]) {
 
       } else {
         // find the parent
-        const parentContainer = homeworkResults.find((x) => {if(x.id === item.parent_id){ return x} });
+        const parentContainer = homework.get(item.parent_id);
 
         // push child into parent
         if (parentContainer) {

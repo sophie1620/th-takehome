@@ -1,6 +1,3 @@
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.loading-text {
+  text-align: center;
 }
